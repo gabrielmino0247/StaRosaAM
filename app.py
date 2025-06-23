@@ -11,7 +11,7 @@ import requests
 
 # Configuración inicial
 st.set_page_config(
-    page_title="Dashboard Automotor", 
+    page_title="Dashboard Santa Rosa", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
