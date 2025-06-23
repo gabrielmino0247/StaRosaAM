@@ -36,10 +36,22 @@ def limpiar_columnas_numericas(df, columnas):
     return df_clean
 
 # Función para verificar si existe la base de datos
-def verificar_base_datos():
+def verificar_base_y_tablas():
     if not os.path.exists("automotor.db"):
         st.error("❌ No se encontró la base de datos 'automotor.db'")
-        st.info("💡 Ejecuta primero el archivo 'cargar.py' para generar la base de datos")
+        st.stop()
+    try:
+        conn = sqlite3.connect("automotor.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tablas = [tabla[0] for tabla in cursor.fetchall()]
+        if "IMPORT_2019_2024" not in tablas or "MATRICULACION_ANUAL_" not in tablas:
+            st.error("❌ Faltan tablas requeridas en la base de datos.")
+            conn.close()
+            st.stop()
+        conn.close()
+    except Exception as e:
+        st.error(f"❌ Error al verificar la base de datos: {e}")
         st.stop()
 
 # Función para cargar datos con manejo de errores
@@ -372,7 +384,7 @@ except Exception as e:
     st.error(f"❌ Error al cargar datos: {e}")
     st.stop()
 # Verificar base de datos
-verificar_base_datos()
+verificar_base_y_tablas()
 # Sidebar de navegación
 st.sidebar.title(" Dashboard Automotor")
 pagina = st.sidebar.radio("Navegación", [
