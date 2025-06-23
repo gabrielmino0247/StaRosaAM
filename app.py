@@ -436,13 +436,13 @@ def descargar_db():
     try:
         DROPBOX_URL = st.secrets["DROPBOX_DB_URL"]
         DB_PATH = "automotor.db"
-        
         if not os.path.exists(DB_PATH):
             with st.spinner("Descargando base de datos desde Dropbox..."):
                 r = requests.get(DROPBOX_URL)
+                r.raise_for_status()
                 with open(DB_PATH, "wb") as f:
                     f.write(r.content)
-                st.success("✅ Base de datos descargada exitosamente")
+            st.success("✅ Base de datos descargada exitosamente")
     except Exception as e:
         st.error(f"❌ Error al descargar la base de datos: {e}")
         st.stop()
