@@ -359,8 +359,7 @@ def crear_grafico_marcas(df, valor_col, titulo):
     )
     return fig
 
-# Verificar base de datos
-verificar_base_datos()
+
 
 # Cargar datos
 try:
@@ -372,7 +371,8 @@ try:
 except Exception as e:
     st.error(f"❌ Error al cargar datos: {e}")
     st.stop()
-
+# Verificar base de datos
+verificar_base_datos()
 # Sidebar de navegación
 st.sidebar.title(" Dashboard Automotor")
 pagina = st.sidebar.radio("Navegación", [
