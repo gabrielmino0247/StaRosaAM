@@ -459,7 +459,6 @@ def descargar_db():
         st.error(f"❌ Error al descargar la base de datos: {e}")
         st.stop()
 
-# Descargar base de datos si no existe
 descargar_db()
 
 # === PÁGINA: RESUMEN GENERAL ===
