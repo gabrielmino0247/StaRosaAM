@@ -431,6 +431,25 @@ except Exception as e:
     st.sidebar.error(f"Error en filtro de marcas: {e}")
     marcas_seleccionadas = []
 
+# Función para descargar base de datos desde Dropbox
+def descargar_db():
+    try:
+        DROPBOX_URL = st.secrets["DROPBOX_DB_URL"]
+        DB_PATH = "automotor.db"
+        
+        if not os.path.exists(DB_PATH):
+            with st.spinner("Descargando base de datos desde Dropbox..."):
+                r = requests.get(DROPBOX_URL)
+                with open(DB_PATH, "wb") as f:
+                    f.write(r.content)
+                st.success("✅ Base de datos descargada exitosamente")
+    except Exception as e:
+        st.error(f"❌ Error al descargar la base de datos: {e}")
+        st.stop()
+
+# Descargar base de datos si no existe
+descargar_db()
+
 # === PÁGINA: RESUMEN GENERAL ===
 if pagina == " Resumen General":
     st.title(" Resumen General")
