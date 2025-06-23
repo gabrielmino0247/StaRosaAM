@@ -461,6 +461,20 @@ def descargar_db():
 
 descargar_db()
 
+# --- Debug: mostrar tamaño y tablas de la base descargada ---
+import os
+import sqlite3
+st.write("Tamaño de automotor.db:", os.path.getsize("automotor.db"), "bytes")
+try:
+    conn = sqlite3.connect("automotor.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tablas = [tabla[0] for tabla in cursor.fetchall()]
+    st.write("Tablas en la base de datos:", tablas)
+    conn.close()
+except Exception as e:
+    st.error(f"Error abriendo la base de datos: {e}")
+
 # === PÁGINA: RESUMEN GENERAL ===
 if pagina == " Resumen General":
     st.title(" Resumen General")
