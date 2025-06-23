@@ -338,7 +338,7 @@ except Exception as e:
     st.stop()
 
 # Sidebar de navegación
-st.sidebar.title(" Dashboard Automotor")
+st.sidebar.title(" Dashboard Santa Rosa")
 pagina = st.sidebar.radio("Navegación", [
     " Resumen General", 
     " Comparativos Temporales",
